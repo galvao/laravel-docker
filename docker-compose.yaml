@@ -11,7 +11,7 @@ services:
       - pg_data:/var/lib/postgresql/data
     container_name: "laravel-app-db"
     healthcheck:
-      test: "export POSTGRES_PASSWORD=p1g2s3q4l; echo \" ALTER DATABASE postgres REFRESH COLLATION VERSION; SELECT 'CREATE DATABASE laravel-app WITH encoding=UTF8' WHERE NOT EXISTS(SELECT FROM pg_database WHERE datname='laravel-app')\\gexec\" |psql -U postgres"
+      test: "export POSTGRES_PASSWORD=p1g2s3q4l; echo \" ALTER DATABASE postgres REFRESH COLLATION VERSION; SELECT 'CREATE DATABASE laravel_app WITH encoding=UTF8' WHERE NOT EXISTS(SELECT FROM pg_database WHERE datname='laravel_app')\\gexec\" |psql -U postgres"
       interval: 3s
       timeout: 3s
       retries: 2
@@ -25,7 +25,7 @@ services:
         condition: service_healthy
         restart: true
     volumes:
-      - ./application:/var/www/html
+      - ./application/src:/var/www/html
     container_name: "laravel-app"
 volumes:
   pg_data:

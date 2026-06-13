@@ -1,0 +1,16 @@
+#! /usr/bin/bash
+
+if [ ! -e "docker-compose.yaml" ]; then
+    echo -n "File docker-compose.yaml not found. Execute this script only in Docker dirs."
+else
+    docker compose down
+
+    echo -n "This will WIPE OUT ALL Docker containers, images, etc... Are you sure (yes/NO): "
+    read CLEARDOCKER
+
+    if [ "${CLEARDOCKER}" = 'yes' ]; then
+        #docker rm $(docker ps -qa) && \
+	docker rmi -f $(docker images -qa) && \
+        docker system prune -af --volumes
+    fi
+fi
